@@ -1,0 +1,14 @@
+my-config:
+  loggers:
+    console:
+      prefix: 'Ха-ха, это лог: '
+      postfix: ' '
+
+spring:
+  application:
+    name: 'hello-spring'
+  datasource:
+    url: jdbc:postgresql://localhost:5433/cars_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
