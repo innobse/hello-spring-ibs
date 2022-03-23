@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * Created on 21.03.2022
  * @since
  */
-@Component
+//@Component
 public class MyBeansInitializingComponent implements BeanPostProcessor {
 
     @Override

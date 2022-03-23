@@ -18,6 +18,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "cars")
+@NamedQueries({
+                @NamedQuery(
+                        name = "car.byFabricAndModelOrder",
+                        query = "select car from CarEntity car where car.fabric = :fabric and car.model = :model order by car.vin")
+})
 public class CarEntity {
 
     @Id

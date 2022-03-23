@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ru.learnup.ibs.hello.spring.hellospring.model.CarEntity;
 import ru.learnup.ibs.hello.spring.hellospring.events.CarRegistrationEvent;
-import ru.learnup.ibs.hello.spring.hellospring.repository.interfaces.CarRepository;
+import ru.learnup.ibs.hello.spring.hellospring.repository.CarRepository;
 import ru.learnup.ibs.hello.spring.hellospring.services.interfaces.CarService;
 import ru.learnup.ibs.hello.spring.hellospring.services.interfaces.Logger;
 
@@ -42,15 +42,30 @@ public class CarServiceImpl implements CarService, BeanNameAware, ApplicationCon
 
     @Override
     public Collection<CarEntity> getAvailableCars() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
     @Override
     public void registerNew(CarEntity car) {
-        repository.addCar(car);
+        repository.save(car);
         ctx.publishEvent(
                 new CarRegistrationEvent(
                         new CarRegistrationEvent.Info(car.getVin())));
+    }
+
+    @Override
+    public Collection<CarEntity> getAllCarsByFabric(String fabric) {
+        return repository.findAllByFabric(fabric);
+    }
+
+    @Override
+    public Collection<CarEntity> getAllForMySelect(String fabric, int borderYear) {
+        return repository.findAllMySelect(fabric, borderYear);
+    }
+
+    @Override
+    public Collection<CarEntity> getAllSort(String fabric, String model) {
+        return repository.getAllSort(fabric, model);
     }
 
     @Override

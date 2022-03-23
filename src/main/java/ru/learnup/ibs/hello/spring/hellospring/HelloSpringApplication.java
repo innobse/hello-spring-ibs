@@ -21,9 +21,10 @@ public class HelloSpringApplication {
     public static void main(String[] args) {
         final ConfigurableApplicationContext ctx = SpringApplication.run(HelloSpringApplication.class, args);
 
-        final Collection<CarEntity> availableCars = ctx.getBean(CarService.class).getAvailableCars();
+        final Collection<CarEntity> azlkCars = ctx.getBean(CarService.class)
+                .getAllSort("Daewoo", "Matiz");
 
-        for (CarEntity availableCar : availableCars) {
+        for (CarEntity availableCar : azlkCars) {
             System.out.println(availableCar);
         }
     }

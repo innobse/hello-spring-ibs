@@ -16,4 +16,10 @@ public interface CarService {
     Collection<CarEntity> getAvailableCars();
 
     void registerNew(CarEntity car);
+
+    Collection<CarEntity> getAllCarsByFabric(String fabric);
+
+    Collection<CarEntity> getAllForMySelect(String fabric, int borderYear);
+
+    Collection<CarEntity> getAllSort(String fabric, String model);
 }
