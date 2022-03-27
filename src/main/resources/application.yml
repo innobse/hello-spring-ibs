@@ -8,7 +8,10 @@ spring:
   application:
     name: 'hello-spring'
   datasource:
-    url: jdbc:postgresql://localhost:5433/cars_db
+    url: jdbc:postgresql://localhost:5433/cars_db_liquibase
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    enabled: true
