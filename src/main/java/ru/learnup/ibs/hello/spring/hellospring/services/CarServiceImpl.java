@@ -8,6 +8,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.learnup.ibs.hello.spring.hellospring.model.CarEntity;
 import ru.learnup.ibs.hello.spring.hellospring.events.CarRegistrationEvent;
 import ru.learnup.ibs.hello.spring.hellospring.repository.CarRepository;
@@ -16,7 +19,11 @@ import ru.learnup.ibs.hello.spring.hellospring.services.interfaces.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.SocketException;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Description
@@ -51,6 +58,22 @@ public class CarServiceImpl implements CarService, BeanNameAware, ApplicationCon
         ctx.publishEvent(
                 new CarRegistrationEvent(
                         new CarRegistrationEvent.Info(car.getVin())));
+    }
+
+    @Override
+    @Transactional
+    public void updateVin(String vin) {
+        System.out.println("Старт транзакции " + Thread.currentThread().getName());
+        final CarEntity targetCar = repository.lockAndGetById(1);
+        System.out.println("Получение объекта");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        targetCar.setVin(vin);
+        repository.save(targetCar);
+        System.out.println("Конец транзакции " + Thread.currentThread().getName());
     }
 
     @Override

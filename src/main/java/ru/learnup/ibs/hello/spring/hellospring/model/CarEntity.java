@@ -21,7 +21,8 @@ import javax.persistence.*;
 @NamedQueries({
                 @NamedQuery(
                         name = "car.byFabricAndModelOrder",
-                        query = "select car from CarEntity car where car.fabric = :fabric and car.model = :model order by car.vin")
+                        query = "select car from CarEntity car where car.fabric = :fabric and car.model = :model order by car.vin"
+                )
 })
 public class CarEntity {
 
@@ -41,4 +42,7 @@ public class CarEntity {
 
     @Column(name = "year")
     private int createYear;
+
+    @Version
+    private int version;
 }

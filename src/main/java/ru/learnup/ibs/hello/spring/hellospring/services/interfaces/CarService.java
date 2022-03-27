@@ -2,6 +2,7 @@ package ru.learnup.ibs.hello.spring.hellospring.services.interfaces;
 
 import ru.learnup.ibs.hello.spring.hellospring.model.CarEntity;
 
+import java.net.SocketException;
 import java.util.Collection;
 
 /**
@@ -16,6 +17,8 @@ public interface CarService {
     Collection<CarEntity> getAvailableCars();
 
     void registerNew(CarEntity car);
+
+    void updateVin(String vin);
 
     Collection<CarEntity> getAllCarsByFabric(String fabric);
 

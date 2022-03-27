@@ -2,16 +2,14 @@ package ru.learnup.ibs.hello.spring.hellospring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import ru.learnup.ibs.hello.spring.hellospring.model.CarEntity;
 import ru.learnup.ibs.hello.spring.hellospring.services.interfaces.CarService;
 
-import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SpringBootApplication
 //@EnableJpaRepositories
@@ -21,12 +19,17 @@ public class HelloSpringApplication {
     public static void main(String[] args) {
         final ConfigurableApplicationContext ctx = SpringApplication.run(HelloSpringApplication.class, args);
 
-        final Collection<CarEntity> azlkCars = ctx.getBean(CarService.class)
-                .getAllSort("Daewoo", "Matiz");
+        final CarService carService = ctx.getBean(CarService.class);
 
-        for (CarEntity availableCar : azlkCars) {
-            System.out.println(availableCar);
-        }
+//        final ExecutorService executorService = Executors.newFixedThreadPool(2);
+//        executorService.submit(() -> {
+//            carService.updateVin("TX 1");
+//        });
+//        executorService.submit(() -> {
+//            carService.updateVin("TX 2");
+//        });
+
+        carService.updateVin("PROGRAMM");
     }
 
     @Bean
