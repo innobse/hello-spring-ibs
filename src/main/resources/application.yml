@@ -8,7 +8,16 @@ spring:
   application:
     name: 'hello-spring'
   datasource:
-    url: jdbc:postgresql://localhost:5433/cars_db
+    url: jdbc:postgresql://localhost:5433/cars_db_flyway?createDatabaseIfNotExist=true
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 1
+#    default-schema: public
