@@ -1,6 +1,6 @@
 package ru.learnup.ibs.hello.spring.hellospring.services.interfaces;
 
-import ru.learnup.ibs.hello.spring.hellospring.model.CarEntity;
+import ru.learnup.ibs.hello.spring.hellospring.domain.Car;
 
 import java.util.Collection;
 
@@ -13,13 +13,19 @@ import java.util.Collection;
  */
 public interface CarService {
 
-    Collection<CarEntity> getAvailableCars();
+    Collection<Car> getAvailableCars();
 
-    void registerNew(CarEntity car);
+    Car registerNew(Car car);
 
-    Collection<CarEntity> getAllCarsByFabric(String fabric);
+    Collection<Car> getAllCarsByFabric(String fabric);
 
-    Collection<CarEntity> getAllForMySelect(String fabric, int borderYear);
+    Collection<Car> getAllForMySelect(String fabric, int borderYear);
 
-    Collection<CarEntity> getAllSort(String fabric, String model);
+    Collection<Car> getAllSort(String fabric, String model);
+
+    Car get(int id);
+
+    void deleteById(int id);
+
+    Car update(Car Car);
 }
