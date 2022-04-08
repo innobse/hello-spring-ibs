@@ -11,6 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import ru.learnup.ibs.hello.spring.hellospring.annotations.AdminRole;
 import ru.learnup.ibs.hello.spring.hellospring.domain.Car;
 import ru.learnup.ibs.hello.spring.hellospring.events.CarRegistrationEvent;
 import ru.learnup.ibs.hello.spring.hellospring.repository.CarRepository;
@@ -49,8 +50,7 @@ public class CarServiceImpl implements CarService, BeanNameAware, ApplicationCon
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
-    @PostFilter("filterObject.fabric.equals('Daewoo')")
+    @AdminRole
     public Collection<Car> getAvailableCars() {
         return repository.findAll().stream()
                 .map(mapper::toDomain)

@@ -1,4 +1,6 @@
 my-config:
+  auth:
+    secret: idADgoijdl&HBNASgjkjk
   loggers:
     console:
       prefix: 'Ха-ха, это лог: '
