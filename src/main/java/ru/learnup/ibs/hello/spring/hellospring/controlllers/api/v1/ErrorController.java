@@ -1,5 +1,6 @@
 package ru.learnup.ibs.hello.spring.hellospring.controlllers.api.v1;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
  * @since
  */
 @RestControllerAdvice
+@Slf4j
 public class ErrorController {
 
     @ExceptionHandler(value = {
@@ -25,10 +27,11 @@ public class ErrorController {
         return new ErrorDto(1, "У нас временные трудности, попробуйте завтра");
     }
 
-    @ExceptionHandler(value = {
-            Exception.class
-    })
-    public ErrorDto exception(Exception err) {
-        return new ErrorDto(2, "Упс, что-то пошло не так, попробуйте позже");
-    }
+//    @ExceptionHandler(value = {
+//            Exception.class
+//    })
+//    public ErrorDto exception(Exception err) {
+//        log.error("Error: " + err);
+//        return new ErrorDto(2, "Упс, что-то пошло не так, попробуйте позже");
+//    }
 }

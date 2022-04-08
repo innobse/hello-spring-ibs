@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import ru.learnup.ibs.hello.spring.hellospring.domain.Car;
 import ru.learnup.ibs.hello.spring.hellospring.events.CarRegistrationEvent;
@@ -17,6 +20,7 @@ import ru.learnup.ibs.hello.spring.hellospring.services.interfaces.Mapper;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -45,6 +49,8 @@ public class CarServiceImpl implements CarService, BeanNameAware, ApplicationCon
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
+    @PostFilter("filterObject.fabric.equals('Daewoo')")
     public Collection<Car> getAvailableCars() {
         return repository.findAll().stream()
                 .map(mapper::toDomain)
@@ -86,6 +92,7 @@ public class CarServiceImpl implements CarService, BeanNameAware, ApplicationCon
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Car get(int id) {
         return mapper.toDomain(
                 repository.findById(id).orElse(null));
